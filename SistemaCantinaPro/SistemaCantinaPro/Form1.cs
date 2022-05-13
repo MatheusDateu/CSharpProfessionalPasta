@@ -1,3 +1,5 @@
+using System.Data;
+
 namespace SistemaCantinaPro
 {
     public partial class LoginScreen : Form
@@ -22,6 +24,31 @@ namespace SistemaCantinaPro
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string Conexao = "Server=50.62.209.50;Database;Uid=netinw;Psw" + txtPassWord + ";Ss1Mode=none";
+            var connection = new MySqlConnection(Conexao);
+            var command = connection.CreateCommand();
+            MySqlConnection query = new MySqlConnection("select count(*) from Users where NomeUsuario = '" + 
+                txtUserName.Text + "'and Senha '" + txtPassWord.Text + "'", connection);
+            connection.Open();
+            DataTable dataTable = new DataTable();
+            MySqlDataAdapter da = new MySqlDataAdapter();
+            da.Fill(dataTable);
+
+            foreach (DataRow dr in dataTable.Rows)
+            {
+                if(Convert.ToInt32(dr.ItemArray[0]) > 0)
+                {
+                    MessageBox.Show("User autentication sucessfully");
+                }
+                else
+                {
+                    MessageBox.Show("Invalid user", "Great" ,MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+
+
+            connection.Close();
+
             String userName = txtUserName.Text;
             String passWord = txtPassWord.Text;
             if (userName == "" || passWord == "")
