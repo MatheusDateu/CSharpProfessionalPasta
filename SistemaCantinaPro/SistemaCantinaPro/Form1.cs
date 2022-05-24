@@ -10,12 +10,13 @@ namespace SistemaCantinaPro
             InitializeComponent();
         }
 
-
         internal class Open
         {
             public static void openNew(Form one, Form two) { 
                 one.Hide();
+                Thread.Sleep(50);
                 two.Show();
+                
             }
         }
 
@@ -34,8 +35,8 @@ namespace SistemaCantinaPro
             Environment.Exit(0);
         }
 
-        private async void button1_Click(object sender, EventArgs e)
-        {            
+        private void button1_Click(object sender, EventArgs e)
+        {
             String userName = txtUserName.Text;
             String passWord = txtPassWord.Text;
             if (userName == "" || passWord == "")
@@ -54,6 +55,13 @@ namespace SistemaCantinaPro
                 Open.openNew(this, homePage);
             }
                 
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Thread.Sleep(50);
+            RegisterNewUserPage registerNewUserPage = new RegisterNewUserPage();
+            Open.openNew(this, registerNewUserPage);
         }
     }
 }

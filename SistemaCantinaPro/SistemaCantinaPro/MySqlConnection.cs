@@ -26,7 +26,7 @@
 
         internal void Close()
         {
-            throw new NotImplementedException();
+            Close();
         }
     }
 }
